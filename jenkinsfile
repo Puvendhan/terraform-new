@@ -1,0 +1,23 @@
+pipeline {
+    
+    agent any
+    tools {
+  terraform 'terraform_1.3.3'
+}
+stages {
+    stage ('git_cloning') {
+        steps {
+            git branch: 'main', url: 'https://github.com/Puvendhan/terraform-new.git'
+            sh 'pwd'
+            sh 'ls -l'
+        }
+    }
+    stage ('terraform init') {
+        steps {
+        sh 'echo "This is terraform project"'
+        sh 'terraform --version && pwd && ls -l'
+        sh 'terraform init -reconfigure -backend-config="access_key=AKIA2MXBU3BTA6VHZZXY" -backend-config="secret_key=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" -backend-config="region=ap-south-1"'
+        }
+    }
+  }
+}
